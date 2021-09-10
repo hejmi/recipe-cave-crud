@@ -28,6 +28,17 @@ app.get("/api/getFromId/:id", (req, res) => {
 	});
 });
 
+// Route to get all ingredients for a recipe
+app.get("/api/getIngredientsFromId/:id", (req, res) => {
+	const id = req.params.id;
+	db.query("SELECT * FROM ingredient WHERE recipe_id = ?", id, (err, result) => {
+		if (err) {
+			console.log(err);
+		}
+		res.send(result);
+	});
+});
+
 app.listen(PORT, () => {
 	console.log(`Server is running on ${PORT}`);
 });
