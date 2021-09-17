@@ -17,6 +17,16 @@ app.get("/api/get", (req, res) => {
 	});
 });
 
+// Route to search for recipe by title
+app.get("/api/search?", (req, res, next) => {
+	db.query("SELECT * FROM recipe WHERE title LIKE '%" + req.query["title"] + "%' ORDER BY title", (err, result) => {
+		if (err) {
+			console.log(err);
+		}
+		res.send(result);
+	});
+});
+
 // Route to get one post
 app.get("/api/getFromId/:id", (req, res) => {
 	const id = req.params.id;
